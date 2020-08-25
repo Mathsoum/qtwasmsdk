@@ -32,7 +32,7 @@ RUN echo "## Cloning Qt source code for wasm" \
     && cd /root/qt/qt5 \
     && ./init-repository -f --module-subset=${QT5_MODULES} > /dev/null 2>&1
 
-RUN echo "## Building Qt for wasm" \
+RUN echo "## Building Qt for WASM" \
     && mkdir -p /root/qt/wasm && cd /root/qt/wasm \
     && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs > /dev/null 2>&1 \
     && make -j$(nproc) > /dev/null 2>&1 \
