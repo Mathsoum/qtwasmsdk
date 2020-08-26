@@ -4,7 +4,7 @@ LABEL maintainer "Tasuku Suzuki <stasuku@gmail.com>"
 
 ARG QT5_REPOSITORY=git://code.qt.io
 ARG QT5_BRANCH=v5.15.0
-ARG QT5_MODULES=qtbase,qtdeclarative,qtquickcontrols,qtquickcontrols2,qtwebsockets,qtsvg
+ARG QT5_MODULES=qtbase,qtdeclarative,qtgraphicaleffects,qtquickcontrols2,qtquickcontrols,qtwebsockets,qtsvg
 
 RUN echo ${QT5_REPOSITORY}
 
