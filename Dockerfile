@@ -34,9 +34,9 @@ RUN echo "## Cloning Qt source code for wasm" \
 
 RUN echo "## Building Qt for WASM" \
     && mkdir -p /root/qt/wasm && cd /root/qt/wasm \
-    && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs > /dev/null 2>&1 \
-    && make -j$(nproc) > /dev/null 2>&1 \
-    && make -j$(nproc) install > /dev/null 2>&1
+    && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs \
+    && make -j$(nproc) \
+    && make -j$(nproc) install
 
 WORKDIR /root/webserver
 COPY webserver /root/webserver/webserver
@@ -58,4 +58,4 @@ WORKDIR /app
 COPY entrypoint /opt/qt/
 RUN chmod 755 /opt/qt/entrypoint
 ENTRYPOINT ["/opt/qt/entrypoint"]
-CMD qmake -makefile && make -j$(nproc) && echo "Starting web server" && webserver || echo "I'm sorry."
+CMD qmake -makefile && make -j$(nproc) && echo "Starting web server" && webserver || echo "Something went wrong."
