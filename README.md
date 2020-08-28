@@ -1,5 +1,12 @@
-# Qt for WebAssembly test server
+Extra Qt modules: Quick Controls 1, Quick Controls 2, Graphical Effects, SVG
 
-$ docker run tasuku/qtwasmserver -v [source directory of your Qt application]:/app -p 8080:8080
+Patches:
+* QTBUG-72670: wasm: accept commandline arguments
+
+
+# How to use this image
+
+$ docker run -v [source directory of your Qt application]:/app -p 8080:8080 lemortalexandre/qtwasm
 
 $ open localhost:8080
+
