@@ -36,13 +36,14 @@ RUN echo "## Configuring Qt for WASM" \
     && mkdir -p /root/qt/wasm && cd /root/qt/wasm \
     && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs 
 
+COPY b0653c3.diff .
 RUN echo "## Patching qtloader.js - QTBUG-72670" \
     && patch /root/qt/qt5/qtbase/src/plugins/platforms/wasm/qtloader.js < b0653c3.diff
 
 RUN echo "## Building Qt for WASM" \
     && cd /root/qt/wasm \
-    && make -j$(nproc) \
-    && make -j$(nproc) install
+    && make -j$(nproc) > /dev/null 2>&1 \
+    && make -j$(nproc) install > /dev/null 2>&1
 
 WORKDIR /root/webserver
 COPY webserver /root/webserver/webserver
