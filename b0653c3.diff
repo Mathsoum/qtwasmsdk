@@ -1,0 +1,28 @@
+From b0653c30a43d2ae8bb81734d3f9375c854fa4137 Mon Sep 17 00:00:00 2001
+From: Lorn Potter <lorn.potter@gmail.com>
+Date: Wed, 19 Dec 2018 14:43:32 +1000
+Subject: [PATCH] wasm: pass search parameters as commandline arguments
+
+This allows commandandline arguments to be passed to Qt wasm apps
+
+Change-Id: Ib243d58f71fd7a3677fb58f370134d744c955e68
+Task-number: QTBUG-72670
+---
+
+diff --git a/src/plugins/platforms/wasm/qtloader.js b/src/plugins/platforms/wasm/qtloader.js
+index ef4a6ec..170c3fa 100644
+--- a/src/plugins/platforms/wasm/qtloader.js
++++ b/src/plugins/platforms/wasm/qtloader.js
+@@ -416,6 +416,12 @@
+ 
+         Module.qtCanvasElements = config.canvasElements;
+ 
++        // set up app arguments
++        var searchParams = window.location.search.substring(1);
++        var keyValArray = searchParams.split('&');
++        if (keyValArray.length > 0)
++            Module['arguments'] = keyValArray;
++
+         config.restart = function() {
+ 
+             // Restart by reloading the page. This will wipe all state which means

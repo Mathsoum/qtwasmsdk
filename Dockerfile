@@ -1,6 +1,6 @@
 ARG EMSCRIPTEN_VERSION=1.39.8-upstream
 FROM emscripten/emsdk:${EMSCRIPTEN_VERSION}
-LABEL maintainer "Tasuku Suzuki <stasuku@gmail.com>"
+LABEL maintainer "Lemort Alexandre <lemort_alex@yahoo.fr>"
 
 ARG QT5_REPOSITORY=git://code.qt.io
 ARG QT5_BRANCH=v5.15.0
@@ -32,9 +32,15 @@ RUN echo "## Cloning Qt source code for wasm" \
     && cd /root/qt/qt5 \
     && ./init-repository -f --module-subset=${QT5_MODULES} > /dev/null 2>&1
 
-RUN echo "## Building Qt for WASM" \
+RUN echo "## Configuring Qt for WASM" \
     && mkdir -p /root/qt/wasm && cd /root/qt/wasm \
-    && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs \
+    && ../qt5/configure -opensource -confirm-license -prefix /opt/qt/wasm -xplatform wasm-emscripten -make libs 
+
+RUN echo "## Patching qtloader.js - QTBUG-72670" \
+    && patch /root/qt/qt5/qtbase/src/plugins/platforms/wasm/qtloader.js < b0653c3.diff
+
+RUN echo "## Building Qt for WASM" \
+    && cd /root/qt/wasm \
     && make -j$(nproc) \
     && make -j$(nproc) install
 
