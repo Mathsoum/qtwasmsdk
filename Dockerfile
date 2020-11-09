@@ -5,7 +5,8 @@ LABEL maintainer "Lemort Alexandre <lemort_alex@yahoo.fr>"
 ARG QT5_REPOSITORY=git://code.qt.io
 ARG QT5_BRANCH=v5.15.1
 ARG QT5_MODULES=qtbase,qtdeclarative,qtgraphicaleffects,qtquickcontrols2,qtquickcontrols,qtwebsockets,qtsvg
-ARG PROJECT_SUBDIRECTORY=.
+
+ENV PROJECT_SUBDIRECTORY=.
 
 RUN echo ${QT5_REPOSITORY}
 
