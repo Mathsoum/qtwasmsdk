@@ -67,4 +67,4 @@ WORKDIR /app
 COPY entrypoint /opt/qt/
 RUN chmod 755 /opt/qt/entrypoint
 ENTRYPOINT ["/opt/qt/entrypoint"]
-CMD cd ${PROJECT_SUBDIRECTORY} && qmake -makefile && make -j$(nproc) && echo "Starting web server" && webserver || echo "Something went wrong."
+CMD cd ${PROJECT_SUBDIRECTORY} && (test -e *.wasm || (qmake -makefile && make -j$(nproc))) && echo "Starting web server" && webserver || echo "Something went wrong."
