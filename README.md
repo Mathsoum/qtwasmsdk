@@ -1,3 +1,5 @@
+Qt 5.15.2
+
 Extra Qt modules: Quick Controls 1, Quick Controls 2, Graphical Effects, SVG
 
 Patches:
