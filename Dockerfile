@@ -10,6 +10,9 @@ ENV PROJECT_SUBDIRECTORY=.
 
 RUN echo ${QT5_REPOSITORY}
 
+RUN echo "## Installing zlib" \
+    && apt-get update && apt-get install -y zlib1g-dev && rm -rf /var/lib/apt/lists/*
+
 RUN echo "## Cloning Qt source code for local server" \
     && mkdir -p /root/qt && cd /root/qt \
     && git clone ${QT5_REPOSITORY}/qt/qt5 --branch ${QT5_BRANCH} > /dev/null 2>&1 \
